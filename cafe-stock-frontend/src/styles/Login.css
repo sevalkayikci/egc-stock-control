@@ -1,0 +1,79 @@
+/* Genel konteyner */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+/* Kutu stili */
+.login-box {
+  background-color: white;
+  padding: 30px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Logo ortalama */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 170px;
+  height: auto;
+}
+
+/* Başlık */
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1d3557;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+/* Inputlar */
+.input {
+  width: 90%;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* Giriş butonu */
+.login-button {
+  width: 97%;
+  padding: 10px;
+  background-color: #2e7d51;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: #256a44;
+}
+
+/* Mobil uyum için */
+@media (max-width: 480px) {
+  .login-box {
+    padding: 20px 15px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+}
