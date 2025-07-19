@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 
 
 app.use(cors({
-  origin: 'https://egc-stock-frontend.onrender.com',
+  origin: "https://https://egc-stok-kontrol.netlify.app",
   credentials: true
 }));
 
