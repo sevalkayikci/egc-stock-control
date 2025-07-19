@@ -13,9 +13,6 @@ import stockRoutes from './routes/stockRoutes.js';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-
-const cors = require('cors');
-
 app.use(cors({
   origin: 'https://egc-stok-kontrol.netlify.app',
   credentials: true
