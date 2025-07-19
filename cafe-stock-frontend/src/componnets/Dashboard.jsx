@@ -1,6 +1,6 @@
-// Dashboard.jsx
+// src/pages/Dashboard.jsx
 import React from 'react';
-import '../styles/Dashboard.css'; 
+import '../styles/Dashboard.css';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {

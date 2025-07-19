@@ -13,10 +13,8 @@ import stockRoutes from './routes/stockRoutes.js';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({
-  origin: 'http://127.0.0.1:5500', // HTML’in çalıştığı port
-  credentials: true
-}));
+app.use(cors());
+
 
 app.use(express.json());
 app.use('/api/products', productRoutes);
