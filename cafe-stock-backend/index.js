@@ -14,11 +14,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 
+const cors = require('cors');
+
 app.use(cors({
-  origin: "https://https://egc-stok-kontrol.netlify.app",
+  origin: 'https://egc-stok-kontrol.netlify.app',
   credentials: true
 }));
-
 
 app.use(express.json());
 app.use('/api/products', productRoutes);
