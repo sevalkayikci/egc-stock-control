@@ -5,6 +5,8 @@ import Login from './components/Login.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import ScanBarcode from './components/ScanBarcode.jsx';
 import AddProduct from './components/AddProduct.jsx';
+import AddProduct from './components/AddProduct.jsx';
+import LocationList from './components/LocationList.jsx';
 const App = () => {
   return (
     <Router>
@@ -13,6 +15,8 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/scan-barcode" element={<ScanBarcode />} />
         <Route path="/add-product" element={<AddProduct />} />
+        <Route path="/list-products" element={<ProductList />} />
+        <Route path="/list-locations" element={<LocationList />} />
       </Routes>
     </Router>
   );
