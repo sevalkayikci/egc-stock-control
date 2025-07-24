@@ -1,17 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './AddProduct.css'; // Stil dosyan varsa
+import './AddProduct.css';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  'https://rwvdxijumgrflcxligpa.supabase.co',
+  'YOUR_SUPABASE_ANON_KEY' // buraya kendi anon key’ini yaz
+);
 
 const AddProduct = () => {
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
-  const [barcode, setBarcode] = useState('');
+  const [location, setLocation] = useState('');
+  const [unit, setUnit] = useState('');
   const [stock, setStock] = useState('');
   const [minLevel, setMinLevel] = useState('');
-  const [unit, setUnit] = useState('');
+  const [barcode, setBarcode] = useState('');
 
-  // Sabit birim listesi
+  const [locations, setLocations] = useState([]);
+
   const units = ['adet', 'kg', 'lt', 'ml', 'kutu', 'şişe'];
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      const { data, error } = await supabase.from('locations').select('*');
+      if (error) {
+        console.error('Konumlar alınamadı:', error);
+      } else {
+        setLocations(data);
+      }
+    };
+
+    fetchLocations();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,50 +40,59 @@ const AddProduct = () => {
     const productData = {
       name,
       category,
-      barcode,
+      location,
+      unit,
       stock: parseFloat(stock),
       minLevel: parseFloat(minLevel),
-      unit
+      barcode
     };
 
     try {
       await axios.post('https://egc-stock-control.onrender.com/api/products', productData);
-      alert('Ürün başarıyla eklendi!');
-      // Formu sıfırla
+      alert('✅ Ürün başarıyla eklendi!');
       setName('');
       setCategory('');
-      setBarcode('');
+      setLocation('');
+      setUnit('');
       setStock('');
       setMinLevel('');
-      setUnit('');
+      setBarcode('');
     } catch (error) {
-      console.error('Ürün eklenirken hata oluştu:', error);
-      alert('Ürün eklenemedi!');
+      console.error('Ürün eklenemedi:', error);
+      alert('❌ Ürün eklenirken hata oluştu.');
     }
   };
 
   return (
-    <div className="form-container">
-      <h2>Ürün Ekle</h2>
+    <div className="add-product-page">
+      <h2>Yeni Ürün Ekle</h2>
       <form onSubmit={handleSubmit}>
-        <label>Ürün Adı</label>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+        <input
+          type="text"
+          placeholder="Ürün Adı"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Kategori"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          required
+        />
 
-        <label>Kategori</label>
-        <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} required />
+        <select value={location} onChange={(e) => setLocation(e.target.value)} required>
+          <option value="">Depo/Bölge Seç</option>
+          {locations.map((loc) => (
+            <option key={loc.id} value={loc.name}>
+              {loc.name}
+            </option>
+          ))}
+        </select>
 
-        <label>Barkod</label>
-        <input type="text" value={barcode} onChange={(e) => setBarcode(e.target.value)} />
-
-        <label>Stok</label>
-        <input type="number" step="any" value={stock} onChange={(e) => setStock(e.target.value)} required />
-
-        <label>Minimum Seviye</label>
-        <input type="number" step="any" value={minLevel} onChange={(e) => setMinLevel(e.target.value)} />
-
-        <label>Birim</label>
         <select value={unit} onChange={(e) => setUnit(e.target.value)} required>
-          <option value="">Seçiniz</option>
+          <option value="">Birim (adet, kg...)</option>
           {units.map((u) => (
             <option key={u} value={u}>
               {u}
@@ -70,7 +100,26 @@ const AddProduct = () => {
           ))}
         </select>
 
-        <button type="submit">Kaydet</button>
+        <input
+          type="number"
+          placeholder="Stok Miktarı"
+          value={stock}
+          onChange={(e) => setStock(e.target.value)}
+          required
+        />
+        <input
+          type="number"
+          placeholder="Minimum Seviye"
+          value={minLevel}
+          onChange={(e) => setMinLevel(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Barkod"
+          value={barcode}
+          onChange={(e) => setBarcode(e.target.value)}
+        />
+        <button type="submit">Ekle</button>
       </form>
     </div>
   );
