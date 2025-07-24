@@ -4,8 +4,8 @@ import './AddProduct.css';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
-  'https://rwvdxijumgrflcxligpa.supabase.co',
-  'YOUR_SUPABASE_ANON_KEY' // buraya kendi anon key’ini yaz
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
 const AddProduct = () => {
