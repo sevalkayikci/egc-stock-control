@@ -1,0 +1,51 @@
+/* src/styles/ScanBarcode.css */
+
+.scanner-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9fbfc;
+  min-height: 100vh;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #0d3b66;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background-color: #0d9488;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #0f766e;
+}
+
+p {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+strong {
+  color: #0d3b66;
+}
+
+.barcode-info {
+  margin-top: 25px;
+  padding: 20px;
+  background-color: #e2f3f2;
+  border-radius: 16px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+}
