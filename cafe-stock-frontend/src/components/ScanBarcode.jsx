@@ -51,7 +51,7 @@ const ScanBarcode = () => {
       {notFound && (
         <div>
           <p>Bu barkodla eşleşen ürün bulunamadı.</p>
-          <button onClick={() => window.location.href = "/urun-ekle"}>
+          <button onClick={() => window.location.href = "/add-product"}>
             Yeni Ürün Olarak Ekle
           </button>
         </div>
