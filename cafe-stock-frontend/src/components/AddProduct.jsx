@@ -1,62 +1,77 @@
 import React, { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import '../styles/AddProduct.css';
+import axios from 'axios';
+import './AddProduct.css'; // Stil dosyan varsa
 
 const AddProduct = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    category: '',
-    area: '',
-    unit: '',
-    stock: '',
-    minLevel: '',
-    barcode: ''
-  });
+  const [name, setName] = useState('');
+  const [category, setCategory] = useState('');
+  const [barcode, setBarcode] = useState('');
+  const [stock, setStock] = useState('');
+  const [minLevel, setMinLevel] = useState('');
+  const [unit, setUnit] = useState('');
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // Sabit birim listesi
+  const units = ['adet', 'kg', 'lt', 'ml', 'kutu', 'şişe'];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        },
-        body: JSON.stringify(formData)
-      });
+    const productData = {
+      name,
+      category,
+      barcode,
+      stock: parseFloat(stock),
+      minLevel: parseFloat(minLevel),
+      unit
+    };
 
-      if (response.ok) {
-        toast.success('🎉 Ürün başarıyla eklendi!');
-        setFormData({ name: '', category: '', area: '', unit: '', stock: '', minLevel: '', barcode: '' });
-      } else {
-        toast.error('🚫 Ürün eklenemedi.');
-      }
+    try {
+      await axios.post('https://egc-stock-control.onrender.com/api/products', productData);
+      alert('Ürün başarıyla eklendi!');
+      // Formu sıfırla
+      setName('');
+      setCategory('');
+      setBarcode('');
+      setStock('');
+      setMinLevel('');
+      setUnit('');
     } catch (error) {
-      console.error('Hata:', error);
-      toast.error('💥 Sunucu hatası.');
+      console.error('Ürün eklenirken hata oluştu:', error);
+      alert('Ürün eklenemedi!');
     }
   };
 
   return (
-    <div className="add-product-page">
-      <h2>Yeni Ürün Ekle</h2>
+    <div className="form-container">
+      <h2>Ürün Ekle</h2>
       <form onSubmit={handleSubmit}>
-        <input name="name" placeholder="Ürün Adı" value={formData.name} onChange={handleChange} required />
-        <input name="category" placeholder="Kategori" value={formData.category} onChange={handleChange} />
-        <input name="area" placeholder="Depo/Bölge" value={formData.area} onChange={handleChange} />
-        <input name="unit" placeholder="Birim (adet, kg...)" value={formData.unit} onChange={handleChange} />
-        <input name="stock" placeholder="Stok Miktarı" type="number" value={formData.stock} onChange={handleChange} />
-        <input name="minLevel" placeholder="Minimum Seviye" type="number" value={formData.minLevel} onChange={handleChange} />
-        <input name="barcode" placeholder="Barkod" value={formData.barcode} onChange={handleChange} required />
-        <button type="submit">Ekle</button>
+        <label>Ürün Adı</label>
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+
+        <label>Kategori</label>
+        <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} required />
+
+        <label>Barkod</label>
+        <input type="text" value={barcode} onChange={(e) => setBarcode(e.target.value)} />
+
+        <label>Stok</label>
+        <input type="number" step="any" value={stock} onChange={(e) => setStock(e.target.value)} required />
+
+        <label>Minimum Seviye</label>
+        <input type="number" step="any" value={minLevel} onChange={(e) => setMinLevel(e.target.value)} />
+
+        <label>Birim</label>
+        <select value={unit} onChange={(e) => setUnit(e.target.value)} required>
+          <option value="">Seçiniz</option>
+          {units.map((u) => (
+            <option key={u} value={u}>
+              {u}
+            </option>
+          ))}
+        </select>
+
+        <button type="submit">Kaydet</button>
       </form>
-      <ToastContainer position="top-center" />
     </div>
   );
 };
