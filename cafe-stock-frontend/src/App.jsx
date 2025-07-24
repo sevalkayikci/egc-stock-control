@@ -6,6 +6,8 @@ import Dashboard from './components/Dashboard.jsx';
 import ScanBarcode from './components/ScanBarcode.jsx';
 import AddProduct from './components/AddProduct.jsx';
 import LocationList from './components/LocationList.jsx';
+import ProductList from './components/ProductList.jsx';
+
 const App = () => {
   return (
     <Router>
