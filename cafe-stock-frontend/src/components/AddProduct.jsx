@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './styles/AddProduct.css';
+import '../styles/AddProduct.css';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
