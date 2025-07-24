@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import ScanBarcode from './components/ScanBarcode.jsx';
-
+import AddProduct from './components/AddProduct.jsx';
 const App = () => {
   return (
     <Router>
@@ -12,6 +12,7 @@ const App = () => {
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/scan-barcode" element={<ScanBarcode />} />
+        <Route path="/add-product" element={<AddProduct />} />
       </Routes>
     </Router>
   );

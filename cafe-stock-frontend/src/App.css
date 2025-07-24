@@ -5,6 +5,19 @@
   text-align: center;
 }
 
+/* Scroll engelleme */
+html, body {
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  -webkit-overflow-scrolling: none;
+  touch-action: none;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
