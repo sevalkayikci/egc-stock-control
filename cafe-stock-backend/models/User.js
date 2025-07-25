@@ -16,6 +16,9 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false
   }
+},
+{
+  schema: 'egc'
 });
 
 export default User;

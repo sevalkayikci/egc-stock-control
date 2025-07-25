@@ -14,6 +14,9 @@ const Product = sequelize.define('Product', {
   unique: true
 }
 
+},
+{
+  schema: 'egc'
 });
 
 export default Product;

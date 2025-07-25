@@ -7,7 +7,11 @@ import User from './User.js';
 const StockMovement = sequelize.define('StockMovement', {
   type: { type: DataTypes.ENUM('in', 'out'), allowNull: false },
   quantity: { type: DataTypes.FLOAT, allowNull: false }
+},
+{
+  schema: 'egc'
 });
+
 
 // İlişkiler
 StockMovement.belongsTo(Product, { foreignKey: 'productId' });
